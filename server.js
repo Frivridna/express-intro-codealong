@@ -3,6 +3,8 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import data from './data.json'
 
+//console.log(data.length) ---> 1390 st filmer
+
 // Defines the port the app will run on. Defaults to 8080, but can be 
 // overridden when starting the server. For example:
 //
@@ -23,10 +25,18 @@ app.get('/nominations', (req, res) => {
   res.json(data)
 })
 
+// 2 arguments: req (use to get some data / body etc.) + response object
+app.get('/nominations', (req, res) => {
+    res.json(data) //send the entire dataset of nominations
+})
+
+// : placeholder - same as react router
 app.get('/year/:year', (req, res) => {
   const year = req.params.year
-  const showWon = req.query.won
-  let nominationsFromYear = data.filter((item) => item.year_award === +year)
+  //console.log({ year })
+  const showWon = req.query.won // ----> access the query variables
+  console.log(showWon)
+  let nominationsFromYear = data.filter((item) => item.year_award === +year) //+ turn string into a number
 
   if (showWon) {
     nominationsFromYear = nominationsFromYear.filter((item) => item.win)
