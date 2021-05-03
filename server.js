@@ -21,27 +21,25 @@ app.get('/', (req, res) => {
   res.send('Hello world')
 })
 
-app.get('/nominations', (req, res) => {
-  res.json(data)
-})
-
 // 2 arguments: req (use to get some data / body etc.) + response object
 app.get('/nominations', (req, res) => {
     res.json(data) //send the entire dataset of nominations
 })
 
-// : placeholder - same as react router
+// : placeholder - same as React router colon : (variable name)
+// callback function starts here, (req, res)
+// 1st argument in the callback 'request' (here you can ask what headers the browser sent etc. if a post request - you can get the data from the body here). 
+// 2nd argument - the response object
 app.get('/year/:year', (req, res) => {
   const year = req.params.year
-  //console.log({ year })
+  console.log({ year })
   const showWon = req.query.won // ----> access the query variables
-  console.log(showWon)
-  let nominationsFromYear = data.filter((item) => item.year_award === +year) //+ turn string into a number
+  //console.log(showWon)
+  let nominationsFromYear = data.filter((item) => item.year_award === +year) //+ turn string into a number (let to be able to filter one more time)
 
   if (showWon) {
     nominationsFromYear = nominationsFromYear.filter((item) => item.win)
-  }
-
+  } 
   res.json(nominationsFromYear)
 })
 
